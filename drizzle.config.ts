@@ -17,5 +17,6 @@ export default defineConfig({
     database: process.env.DB_NAME ?? "team_time",
     user: process.env.DB_USER ?? "postgres",
     password: process.env.DB_PASSWORD ?? "postgres",
+    ssl: false,
   },
 });
