@@ -1,6 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
-export function App() {
+export function LandingPage() {
   return (
     <Container maxWidth="sm">
       <Box
@@ -22,16 +23,21 @@ export function App() {
           The effortless way to bring your team together.
         </Typography>
 
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 480 }}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ maxWidth: 480 }}
+        >
           Say goodbye to endless email chains and calendar chaos. Team Time
           makes scheduling happy hours, coffee chats, and team lunches
           ridiculously simple. One click, everyone's in, memories made.
         </Typography>
 
         <Button
+          component={Link}
+          to="/login"
           variant="contained"
           size="large"
-          href="/login"
           sx={{ mt: 2, px: 4, py: 1.5 }}
         >
           Get Started

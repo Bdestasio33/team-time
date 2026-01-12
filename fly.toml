@@ -5,6 +5,10 @@ primary_region = "iad"
 
 [build]
 
+[env]
+  NODE_ENV = "production"
+  # Database and JWT secrets should be set via `fly secrets set`
+
 [http_service]
   internal_port = 8080
   force_https = true

@@ -12,20 +12,37 @@ RUN npm ci
 # Copy source files
 COPY . .
 
-# Build the application
+# Build the React app and compile server
 RUN npm run build
 
 # Stage 2: Production
-FROM nginx:alpine AS production
+FROM node:22-alpine AS production
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy built assets from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy package files and install production dependencies only
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev
 
-# Expose port 8080 (fly.io default)
+# Copy built React app
+COPY --from=builder /app/website/dist ./website/dist
+
+# Copy server source (tsx runs TypeScript directly)
+COPY --from=builder /app/server ./server
+
+# Copy shared db code
+COPY --from=builder /app/src ./src
+
+# Copy drizzle config for migrations
+COPY --from=builder /app/drizzle.config.ts ./
+COPY --from=builder /app/drizzle ./drizzle
+
+# Set environment
+ENV NODE_ENV=production
+ENV PORT=8080
+
+# Expose port
 EXPOSE 8080
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the server
+CMD ["node", "--import", "tsx", "server/index.ts"]
