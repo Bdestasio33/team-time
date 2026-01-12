@@ -21,7 +21,8 @@
     "drizzle:migrate": "tsx node_modules/.bin/drizzle-kit migrate",
     "drizzle:drop": "tsx node_modules/.bin/drizzle-kit drop",
     "drizzle:seed": "docker exec -i postgres-team-time psql -U postgres -d team_time < src/db/seed.sql",
-    "drizzle:unseed": "docker exec -i postgres-team-time psql -U postgres -d team_time < src/db/unseed.sql"
+    "drizzle:unseed": "docker exec -i postgres-team-time psql -U postgres -d team_time < src/db/unseed.sql",
+    "fly:deploy": "fly deploy -c deploy/fly.toml"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

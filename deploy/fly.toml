@@ -4,6 +4,7 @@ app = "team-time"
 primary_region = "iad"
 
 [build]
+  dockerfile = "deploy/Dockerfile"
 
 [env]
   NODE_ENV = "production"
