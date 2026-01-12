@@ -4,6 +4,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import express from "express";
 import authRoutes from "./routes/auth.js";
+import eventsRoutes from "./routes/events.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // API routes
 app.use("/api/auth", authRoutes);
+app.use("/api/events", eventsRoutes);
 
 // In production, serve the React app
 if (process.env.NODE_ENV === "production") {

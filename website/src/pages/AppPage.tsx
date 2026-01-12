@@ -1,35 +1,66 @@
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import { CreateEventDialog } from "../components/CreateEventDialog";
+import { EventDetail } from "../components/EventDetail";
+import { EventList } from "../components/EventList";
+import { EventsCalendar } from "../components/EventsCalendar";
 import { useAuth } from "../hooks/useAuth";
 
 export function AppPage() {
   const { user, logout } = useAuth();
+  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ py: 4 }}>
-        <Paper sx={{ p: 4 }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Welcome, {user?.name}!
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <AppBar position="static" elevation={1}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Team Time
           </Typography>
-
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-            You're logged in to Team Time. This is where the app functionality
-            will live.
+          <Typography variant="body2" sx={{ mr: 2 }}>
+            {user?.name}
           </Typography>
+          <IconButton color="inherit" onClick={logout} title="Sign out">
+            <LogoutIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
-          <Box sx={{ p: 3, bgcolor: "grey.100", borderRadius: 1, mb: 3 }}>
-            <Typography variant="subtitle2" color="text.secondary">
-              Your Info
-            </Typography>
-            <Typography>Email: {user?.email}</Typography>
-            <Typography>Team ID: {user?.teamId}</Typography>
-          </Box>
+      <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <Box
+          sx={{
+            width: "33.33%",
+            borderRight: 1,
+            borderColor: "divider",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <EventList
+            onSelectEvent={setSelectedEventId}
+            onCreateEvent={() => setCreateDialogOpen(true)}
+          />
+        </Box>
 
-          <Button variant="outlined" onClick={logout}>
-            Sign Out
-          </Button>
-        </Paper>
+        <Box sx={{ width: "66.67%", overflow: "hidden" }}>
+          <EventsCalendar onSelectEvent={setSelectedEventId} />
+        </Box>
       </Box>
-    </Container>
+
+      <CreateEventDialog
+        open={createDialogOpen}
+        onClose={() => setCreateDialogOpen(false)}
+      />
+
+      {selectedEventId && (
+        <EventDetail
+          eventId={selectedEventId}
+          open={!!selectedEventId}
+          onClose={() => setSelectedEventId(null)}
+        />
+      )}
+    </Box>
   );
 }
