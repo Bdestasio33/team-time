@@ -38,6 +38,3 @@ CLAUDE-WORKING.md
 
 # Docker
 docker-data/
-
-# Drizzle migrations
-drizzle/

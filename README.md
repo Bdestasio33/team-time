@@ -29,6 +29,9 @@ docker compose up -d
 # Install dependencies
 npm install
 
+# Create env file
+cp .env.docker.template .env
+
 # Run migrations and seed data
 npm run drizzle:migrate
 npm run drizzle:seed
