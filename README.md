@@ -84,7 +84,7 @@ Imagine you're joining this project as a QA Analyst. Your goal is to establish a
 
 4. **Initial Evaluation**
 
-   - Conduct a 1-2 hour smoke test of the application
+   - Conduct a smoke test of the application
    - Document any bugs, usability issues, or concerns
    - Include improvement suggestions
 
@@ -107,7 +107,7 @@ We're looking for:
 
 **Estimated time**: 2-4 hours
 
-Please send your deliverables as a ZIP file or shared folder (Google Drive, Dropbox, etc.) to **Dominick DeStasio**.
+As part of the process, you will be provided access to a Google Drive. All documentation, code, etc should either be placed in the drive or instructions should be given to access it.
 
 ---
 
