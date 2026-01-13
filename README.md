@@ -23,14 +23,14 @@ Team Time helps teams coordinate event scheduling through collaborative time pro
 git clone https://github.com/Revobo/team-time.git
 cd team-time
 
+# Create env file
+cp .env.docker.template .env
+
 # Start the database
 docker compose up -d
 
 # Install dependencies
 npm install
-
-# Create env file
-cp .env.docker.template .env
 
 # Run migrations and seed data
 npm run drizzle:migrate
